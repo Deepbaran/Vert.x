@@ -1,0 +1,553 @@
+Kill a Port: https://stackoverflow.com/a/39633428
+
++++++++++++++++++++++
+Q & A
++++++++++++++++++++++
+Q. What are Web Services?
+A: Web Service is any service that-
+	1. Is available iver the internet or private (intranet) networks.
+	2. Uses a stndardized XML or JSON messaging system.
+	3. Is not tied to any one operating system or programming language.
+	4. Is self-describing via a common XML grammar.
+	5. Is discoverable via a simple find mechanism.
+> Examples: REST (Representational State Transfer) and SOAP (Simple Object Access Protocol)
+> REST vs SOAP:
+	1. SOAP is a protocol whereas REST is an architectural pattern.
+	2. Comparing SOAP vs REST API, SOAP only works with XML formats whereas REST work with plain text, XML, HTML and JSON.
+	3. SOAP cannot make use of REST whereas REST can make use of SOAP.
+> Web services are XML or JSON -based information exchange systems that use the Internet for direct application-to-application interaction. These systems can include programs, objects, messages, or documents. A web service is a collection of open protocols and standards used for exchanging data between applications or systems.
+
+Q. What are Microservices?
+A: Microservices - also known as the microservice architecture - is an architectural style that structures an application as a collection of services that are - 
+	1. Highly maintainable and testable.
+	2. Loosely Coupled.
+	3. Independently Deployable.
+	4. Organized Around Business Capabilities.
+	5. Owned by a small team.
+> Microservice architecture, or simply microservices, is a distinctive method of developing software systems that tries to focus on building single-function modules with well-defined interfaces and operations. The trend has grown popular in recent years as Enterprises look to become more Agile and move towards a DevOps and continuous testing.
+
+Q. Difference betwwen Microservices and Webservices?
+A: A microservice is a small, independent, application that performs a highly focused service as well as possible. A web service is an internet-based interface that makes the “services” of one application available to applications running on different platforms.
+
+Q. What is Reactive Programming?
+A: Reactive programming is a programming paradigm that promotes an asynchronous, non-blocking, event-driven approach to data processing. Reactive programming involves modeling data and events as observable data streams and implementing data processing routines to react to the changes in those streams.
+> Normally is used in situations where your publisher emit more information than your consumer can process. So having this mechanism you can control the flow of traffic between both and avoid the nasty out of memory problems.
+> Few Reactive implementations: Node.js, Spring-webflux, Vert.X, Akka, ReactiveX.
+> Pros:
+	1. Improves user experience: The asynchronous nature of RP means that whatever you program with it will offer a smoother, more responsive product for your users to interact with.
+	2. Simple to compose streams of data: Reactive programming provide the potential for developers to create, filter, and combine streams of data which can emit a value, error, and a completed signal, to achieve powerful objectives.
+	3. A lot simpler to do async/threaded work:  The method that PR allows you to work on the data streams causes it becomes less hassle than regular threading.
+	4. Avoid “callback hell” or "pyramid of doom": Callback Hell is an anti-pattern seen in code of asynchronous programming. It is a slang term used to describe and unwieldy number of nested “if” statements or functions. It usually happens when there are a lot of callback functions in the code. Developers can avoid the callback hell with reactive programming because it depends on asynchronous data streams.
+	5. High performance in cooperation with Java: RP allows Java apps to have higher performance with lower memory requirements. This is made possible by avoiding blocking calls that lead to a process as well as context switches in the OS.
+> Cons:
+	1. Hard to learn: RP have a reputation of being difficult since it is entirely different compared with previous ways of working. This leads to a steep learning curve when you start using it which may be a shock to some developers.
+	2. More memory intensive: Applications will tend to be more memory intensive due to reactive programming relies on streams over time. This can lead to memory leakage which could end up seriously slowing things down for users.
+
+Q. Reactive Programming vs Thread based Programming?
+A: Typical Thread based Model flow and problems:
+	1. For each request, a thread is created.
+	2. A large number of threads gets created to serve 100’s of request.
+	3. Each thread consumes around ~512KB to 2 MB, which leads to memory problems.
+	4. Thread scheduling causes frequent context-switching which (CPU intensive).
+	5. Throughput is un-predictable.
+	6. Many times threads are just waiting for IO/Database/Network call.
+How Reactive model solve this problem:
+	1. Number of threads is limited (usually number of CPU cores -1) and tasks are managed by an event loop.
+	2. Everything is asynchronous. Threads don't get blocked by synchronous calls.
+	3. Memory is not wasted in multiple thread creation.
+	4. Thread context-switching is prevented and thus no race-condition for CPU and other resources.
+	5. Throughput is predictable.
+
+Q. What is Vert.X? [https://vertx.io/introduction-to-vertx-and-reactive/]
+A: Eclipse Vert.x is a tool-kit for building reactive applications on the JVM. Reactive applications are both scalable as workloads grow, and resilient when failures arise. A reactive application is responsive as it keeps latency under control by making efficient usage of system resources, and by protecting itself from errors.
+> Vert.x is backed by a large ecosystem of reactive modules with just anything you need when writing modern services: a comprehensive web stack, reactive database drivers, messaging, event streams, clustering, metrics, distributed tracing and more.
+> (Documentation) - Vert.x is a tool-kit and not a framework that ships with black magic: what you write is actually what you get to execute, as simple as that.
+> (Wikipedia) - Vert. x is a polyglot web framework that shares common functionalities among its supported languages Java, Kotlin, Scala, Ruby, and Javascript. Regardless of language, Vert. x operates on the Java Virtual Machine (JVM).
+> Vert. x is a toolkit to build distributed reactive systems on the top of the Java Virtual Machine using an asynchronous and non-blocking development model. As a toolkit, Vert. x can be used in many contexts: in a standalone application or embedded in a Spring application.
+> Vert.X run in single thread mode.
+> Features:
+	1. Resource-efficient: Handle more requests with less resources compared to traditional stacks and frameworks based on blocking I/O (Synchronous). Vert.X is based in Non-blocking I/O (Event Loop)(Asynchronous). Vert.x is a great fit for all kinds of execution environments, including constrained environments like virtual machines and containers.
+	2. Concurrent and asynchronous.
+	3. Flexible: Vert.x is a toolkit, not a framework, so it is naturally very composable and embeddable. Select the modules and clients you need and compose them as you craft your application. Vert.x will always adapt and scale depending on your needs.
+	4. Ecosystem: Web APIs, databases, messaging, event streams, cloud, registries, security. 
+
+Q. Current Version of Vert.X?
+A: Current version of Vert.X is Vert.X 4.
+
++++++++++++++++++++++
+Notes
++++++++++++++++++++++
+>>> Traditional Thread Model:
+>>  Let's say we have a web server and the client is dong a request to our application. Then the web server would open up a new thread. After that when another request comes, another thread will be created. This will continue and new thread will keep being created on the server. This model is perfectly fine and called multithreading.
+>> There is one problem with this model, and that is, the waiting time until their request is done, no other operation can be executed. As computers have limited amounts of CPUs and can therefore cerate a limited amounts of threads, the model stops working at a certain workload.
+>> When deploying an application in the cloud, we want to keep the costs low and make sure to use the resources available in the most efficient way. Solution to this problem is called Non-blocking I/O (Event Loop).
+>> Multithreading uses Blocking I/O and wastes CPU resources.
+
+>>> Reactive Programming: 
+>> Reactive Programming uses Non-blocking I/O, or also known as event loops. One Thread is not waiting for the operation to complete. The thread is processing is tasks as fast as possible, one after the other. There is not waiting time, events are lined up in a queue and processed one after the other. With this Resources are utilized as good as possible.
+>> Reactive Programming requires the use of callbacks, futures and messages. Reactive programming is asynchronous.
+
+>>> Vert.X: 
+>> Eclipse Vert.X is a tool-kit for building reactive applications on the JVM. Reactive Applications are both scalable as workloads grow and resilient when figures arise. A reactive application is responsive as it keeps latency under control by making efficient usage of system resources, and by protecting itself from errors.
+
+>> The Toolkit:
+> Vert.x has built in support for creating powerful reactive applications. The toolkit consists of many different modules as Vert.x is very modular.
+	1. Vert.x Core - The Core module of Vert.x. We need to use it to use Vert.x and other modules.
+	2. Vert.x Web - For creating REST APIs
+	3. Vert.x JUnit / Vert.x Unit - Unit Testing of Asynchromous Code
+	4. Vert.x Auth - For Authentication
+	5. Vert.x JDBC - For accessing relational Databases.
+	6. Different clients for accessing, MongoDB, Cassandra and other NoSQL databases.
+	7. Messaging Tools - To integrate different messaging tools like Kafka and MQTT.
+	8. Integrations to RX.Java and Reactive Streams as we are using Reactive Coding.
+
+===============
+Vert.x Core
+===============
+>> Vert.x Core:
+	1. The Vert.x Object
+	2. Verticles
+	3. Event Loops
+	4. Worker Threads
+	5. The Event Bus
+	6. Vert.x Future & Promises
+
+> Folder Structure:
+	1. MainVerticle: Entry point of the Vert.x Application. Run the main method in here to run the application.
+	2. TestMainVerticle: Shows if everything works. Use it to test the application.
+
+> Vert.x Object: 
+* The whole Vert.x framework builts around the Vert.x object. It is the control center of Vert.x. With this object, we can do a lot, like creating servers, clients or setting timers, etc. 
+* To start our application we need a Vert.x object. We can achieve this by creating a Vert.x object in Java main class. As the Java main class is the entry point of a Java application.
+* Each application can only have one Vertx object.
+
+> Verticles:
+** A verticle is the fundamental processing unit in Vert. x. The role of a verticle is to encapsulate a technical functional unit for processing events such as exposing an HTTP API and responding to requests, providing a repository interface on top of a database, or issuing requests to a third-party system.
+*** Vert.x comes with a scalable Actor-like deployment and concurrency model out of the box. In the Vert.x world, these components are called Verticles.
+*** The Verticle model is not 100% same as the actor model, but very similar. To use this model, it is possible to define multiple verticles that are deployed by the Vertx instance.
+*** Verticles are running on the event loop threads which are used for non blocking operations and verticle can be deployed multiple times or scalability. As an example, we could have a MainVerticle that deploys VerticleA and VerticleB and these two Verticles are then children.
+                                     --> VerticleA
+                                    |
+                     MainVerticle --|
+                                    | 
+                                     --> VerticleB
+
+*** Verticle Structure:
+                                                  
+                                                      --> VerticleAA
+                                     --> VerticleA --|
+                                    |                 --> VerticleAB
+                     MainVerticle --|--> VerticleB
+                                    | 
+                                     --> VerticleN
+
+Here we have a more complex Verticle structure. So, the MainVerticle would deploy, Verticle A, B and N as child Verticles. And each of these children Verticles can also have Children. So VerticleA can have VerticleAA and VerticleAB as children. So, you can imagine as a Tree with zero amount of leaves. It does not matter, how deep the structure goes, but it is recommended not to make it too complicated.
+
+*** Scaling Verticles:
+** One big benefit of this structure is to concurrently model and scalability. Each child Verticle can be deployed multiple times, and as each verticle has it's own thread, multiple threads can be used without concurrent access issues.
+** Scalability makes sure that our resources are utilized as good as possible. So let's say you have a verticle that needs a lot of CPU and you have a CPU with four cores. To utilize the full power of the CPU, it makes sense to run four instances of your Verticle. With that all the CPU resources can be utilized properly. But be careful not to run all the Verticles multiple times, as they would compete for resources. So think about where you need more concurrency and add more instances there.
+** This is a fairly straightforward way to achieve concurrency with the thread safety inside one verticle.
+** Be careful when scaling the Verticles.
+
+*** Summarize:
+	1. Verticle code is executed on a non blocking event loop thread. So, inside a verticle, thread safety is guranteed.
+		a. Vert.x uses multiple event loops (Multiple-Reactor Pattern) for an application.
+		b. An event loop must not execute blocking code (only non blocking code is executed) to gurantee fast processing of events. Otherwise, Worker Verticles should be used.
+	2. Verticles typically communicate over Vertex eventbus.
+	3. Typically all Verticles use the same Vert.x instance. So, don't create your own ones. Vert.x is handling this for you.
+	4. The whole verticle model is optional. But it makes sense to use it to avoid concurrency issues and to make it easier to scale your application.
+
+*** Event Loops:
+** By default Vert.x code is executes on a non blocking event loop thread.
+** If you run a code, the code is executed on a thread on the CPU of your computer. If the application would have only one thread, nothing can happen in parallel and other requests would have to wait all the time until the thread is free. To avoid this issue, a software program runs normally on multiple threads and they can execute tasks in parallel. This concept is known as multithreading. It is fine to run more threads as a software program, but when a lot of concurrent requests are happening, then a lot of threads have to be created and depending on the request, they would need to wait until the response returns. This causes a lot of wasted CPU time as the threads are not fully utilized and at some point one CPU will not accept more than one thread. It means that the power is limited and this is called Blocking I/O. The solution to avoid wasting time is called Non-blocking I/O (Event Loops).
+** The threads which are executing Non-blocking I/O are called Event Loops and Vert.x is utilizing this concept heavily.
+** All events get lined up in a queue and the event loop thread processes them as fast as possible without any waiting time.
+** Rule number one here is to never block event loop threads to ensure that all events can be processed as dast as possible.
+** Each Vert.x Verticle is scheduled on an event loop thread. With that inside a Verticle, Thread Safety is guranteed and concurrency can happen without concurrent access issues.
+** Sometimes, there are operations which are Blocking by nature, like traditional relational database's access, file access or just waiting for network responses. As Blocking operations cannot be avoided, it is possible to execute these kind of events on so-called Worker Threads.
+** Additionally Vert.x has a built in thread blocked checker that will run when the event loop is blocked. If you see "vertx-eventloop-thread-X has been blocked for Y ms" type of warning, make sure to fix this. Otherwise your application might not behave as expected.
+
+*** Worker Threads:
+** Vert.x provides two ways to execute blocking operations, either by calling "vertx.executeBlocking()" or by deploying a "Worker Verticle".
+** Blocking Operations: File I/O, heavy computations, Waiting for network or a simple Thread.sleep().
+
+*** Event Bus:
+** Event Bus is used for communicatio between Verticles.
+** Event Bus is also called the event system of Vert.x.
+** It is a event driven communication in a thread-safe non-blocking way.
+** There is only one event bus instance per Vertx instance available.
+** It is possible to hookup the event bus to clients and distribute messages to multiple server nodes.
+** The event bus supports three way of messaging - 
+	1. Publish/subscribe messaging: One Verticle is publishing a message that can be received by multiple consumers.
+	2. Point to point messaging: One verticle is sending a message to another verticle without any response.
+	3. request-response messaging: One verticle sends response to another verticle and the reeiver verticle sends back a response.
+	The verticles can communicate with each other via the event bus by using the three ways of messaging.
+	                        Verticle1         Verticle2
+	                           |                 |
+	                      --------------------------------
+	                             Event Bus
+	                      --------------------------------
+	                           |        |          |
+	                        Verticle3  Verticle4  Verticle5
+
+> Vert.x Future & Promises:
+*** Vert.x uses an aynchronous programming model to achieve scalability and resource efficiency. In asynchronous environment, it is possible to manage tasks and react on different results. There is one drawback with callbacks, called callback hell. Chaining callbacks together is a bad practice. Vert.s has a better way for this. It is called Promises & Futures.
+*** Points:
+	1. Simple coordination of asynchronous tasks.
+	2. Functional programming approach to replace callbacks.
+	3. Promise was introduced in Vert.x 3.8. Before that only Future was available.
+	4. Promise is the write view. And Future is the Read View.
+*** Promise: Used to write an eventual value and can be completed or can be marked as failed.
+*** Future: Used to read the value from the Promise when it is available. onSuccess and onFailure APIs were introduced for Future in Vert.x 4. These are used to handle the outcome of a Promise and as well process the result.
+*** CompositeFuture: Used to manage multiple Futures and coordinate them properly. It provides a way to reflect on the outcome of multiple futures.
+*** Vert.x Futures can be composed using .compose() fuction.
+
+>> Vert.x Launcher:
+> The Vert.x Launcher is used in fat-jar [https://stackoverflow.com/a/57592130] as main class, and by the vertx command line utility. It executes a set of commands such as run, barestart, etc.
+> It is used to get a clean start and stop.
+> It is possible to extend the Launcher Class to add some of our custom logic.
+> Launcher and exit codes:
+	1. 0 - Process ended smoothly without errors
+	2. 1 - General purpose error
+	3. 11 - Vert.x cannot be initialized
+	4. 12 - If a spawn process cannot be started, found, or stopped. This error code is used by the start and stop commands.
+	5. 14 - System configuration did not meet the system requirement (shc as java not found)
+	6. 15 - Main Verticle cannot be deployed
+> Codes in Terminal:
+	1. ./gradlew clean assemble <OR> ./mvnw clean package -> To clean and assembel the projct into a fat-jar (w is for wrapper)
+	2. java -jar .\build\libs\vertx-starter-1.0.0-SNAPSHOT-fat.jar -> Start the application using the fat-jar
+> Using the Launcher makes sure that the application is making clean exit (clears up all the resources) once it stops.
+
+>> Live Redploy: [See how to implement from the docs: https://vertx.io/docs/vertx-core/java/#_live_redeploy]
+> Vert.x Launcher has a live redeploy functionality. That is new changes will be redployed automatically.
+
+>> Bundle a fat-jar into a docker container:
+	1. docker build -t example/vertx-starter .
+	2. docker run -t -i -p 8888:8888 example/vertx-starter
+
+>> Use the Google JIB plugin to bundle a Docker container during the Creative Build:
+	1. Gradle: https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin
+	2. Maven: https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin
+
+===============
+Vert.x Web
+===============
+>>> Vert.x is very modular. The Vert.X Web is to build REST APIs.
+>>> On the server side:
+	1. Vert.x builds on Netty (HTTP Server)
+	2. Vert.x Web supports Request Routing (Non-blocking and Async)
+	3. Servers support Reactive HTTP request processing.
+	4. JSON binding with Jackson
+	5. Server also supports Web sockets and HTTP/2
+
+>>> When using Vert.x Web Client:
+	1. We can use functionality such as aynchronous HTTP and HTTP/2 client
+	2. The Client supports JSON bosy encoding/decoding.
+	3. The client can be used for request response streaming
+	4. The client supports the use of RxJava 2 API
+
+>>> PROJECT NAME: STOCK BROKER REST API:
+>> Public Endpoints:
+> GET:
+	1. /assets
+	2. /quotes/{asset}
+
+>> Private Endpoints:
+> GET:
+	1. /account/watchlist
+	2. /account/watchlist-reactive
+> PUT:
+	1. /account/watchlist
+	2. /account/watchlist-reactive
+> DELETE:
+	1. /account/watchlist
+	2. /account/watchlist-reactive
+
+>> Dependencies:
+	1. vertx-web
+	2. logback-classic
+	3. vertx-web-client
+	4. lombok
+	5. vertx-config (Config)
+	6. vertx-config-yaml (Config)
+	7. flyway-core (Database)
+	8. postgresql [PostgreSQL] & mysql-connector-java [MySQL] (Database)
+	9. vertx-pg-client [PostgreSQL] & vertx-mysql-client [MySQL] (Database)
+	10. vertx-sql-client-template (Database)
+
+>> Notes:
+> Body Handling: We need to enable Body handler to parse HTTP requests to make PUT endpoint work. We can register a Body Handler for a particular route or to the parent router.
+When a HTTP request reaches our web server, the body handler will be called. If a request body is available, the body will be added to the request context and after that the handler forwards it to the next handler. If there is no next handler, the request ends.
+Once registered to a route, the request is passed to the next handler successfully. If it is registered to a parent router then all the requests are forwarded to appropriate handlers successfully.
+Without this we get "Unhandled exception in router" error.
+
+> HTTP Headers: The HTTP Header contains information about the HTTP Body and the Request/Response.
+When creating REST APIs, it is best practice to set the HTTP content type Header to the value "application/json".
+This is mainly interesting for the consumers using the API.
+By using Vert.x web, it is possible to define custom headers, send them is a HTTP response and also fetch them by using the WebClient.
+HTTP Headers are like key-value pairs.
+
+> Vert.x Web Server:
+*** Vert.x is a verty resource efficient and highly scalable toolkit, using a non blocking HTTP server to handle a lot of HTTP requests.
+*** Under the hood, Vert.x uses Netty.
+
+> Scaling  the web server:
+*** If there are more than one CPU in the server then deployinh out REST API on one single event loop will be resource inefficient.
+*** A HTTP server runs on one Event Loop Thread and all requests are handled on the same thread.
+*** Vert.x will always request and respond on the same therad. Vert.x will never response on another thread. So, all other routes are responding and are scheduled on the same thread.
+*** To avoid using a single thread and use the resources efficiently we can use multiple HTTP servers can be started on multiple threads with Vert.x. Load will be distributed over multiple event loops and for example, one HTTP server per CPU core can be started.
+e.g: 4 HTTP Servers on 4 Event loop Threads. Now when there are multiple requests, the requests will be distributed among multiple event loop threads.
+*** Vert.x Web server will try to use as little resource as possible when it does not have that much load. 
+
+===============
+Vert.x Config
+===============
+>>> Vert.x config has a lot of functionality and supports a lot of different formats such as JSON, Properties, YAML (extension), Hocon (extension).
+>> Configuration Properties can be stored in multiple stores. Vert.x supports:
+	1. System propertirs
+	2. Environment propertirs [Configure these in the IDE run time environemental variables to assign proper values.]
+	3. files
+	4. Event Bus
+	5. Kubernetes Config Map (extension)
+	6. & more
+
+>> Vert.x config adds the ability to add multiple stores. So, there are some overloading rules in place. To ensure the configuration is not overriden, use unique names or make sure to add the stores in the correct order. By changing the order of adding the stores, the priority can be changed. The store that is added at the end has the highest priority. As the configuration is overloaded if the same property is defined. So, the order how the stores were added matters.
+
+>> Vert.x Config module can be used to load the configuration from multiple verticles. If the Configuration is not immutable, make sure not to share it.
+
+>> A alternative approach can be distributing the Configuration over the Event Bus.
+
+===============
+Vert.x Data
+===============
+>>> Vert.x uses Reactive SQL Client to access Relational Databases.
+>>> Reactive SQL Client:
+	1. High performance SQL Client
+	2. Reactive and Non blocking
+	3. Handles many database connections with a single thread.
+	4. Simple API focusing on scalability and low overhead.
+	5. Available for:
+		a. PostgreSQL
+		b. MySQL
+		c. SQL Server
+		d. IBM DB2
+>> The Reactive SQL client uses multiple database connections on a single Event Loop Thread. By default the client uses 4 connections per thread or connection pool. It is possible to change it using the Pool options to change the number of database connections per database connection pool.
+
+>> Vert.x has support for SQL client Templates. These templates are syntax to create SQL queries. It supports:
+	1. Parameter Mapping:
+		a. #{id}
+	2. Row Mapping:
+		a. Row => JsonObject
+		b. Row => CustomObject
+	3. Vert.x Data Objects
+
+>>> Vert.x has also support for the JDBC client. The JDBC client can be used for blocking JDBC access (Using worker threads). It can be used for non supported Relational Databases of Reactive SQL Client API. This client is deprecated in Vert.x 4. So, the migration to Reactive SQL Client API is recommended if possible.
+
+>> Most of the Web applications use JDBC for relational database access, which does not fit well in a reactive environment.
+
+>> The reactive SQL client uses multiple connections on one Event Loop Thread. Everything is non blocking and very efficient as the Trhread context never changes. As Verticles are bound to an event loop thread, it makes sense to use one Reactive Database connection pool for each Verticle.
+
+>>> SQL Client Templates:
+>> SQL Client Templates is a small library designed to facilitate the execution of SQL queries. Create SQL queries in simple and easy way.
+> forQuery() - Returns a RowSet
+> forUpdate() - Insert and Delete Statements
+
+=========================
+Vert.x Reactive - Mutiny
+=========================
+>>> Mutiny is a novel reactive programming library implementing reactive streams API. Mutiny aims to be very simplistic, and it's tightly integrated into the Quarkus Framework. Every reflective API in Quarkus used the Mutiny API.
+
+>>> Vert.x clients are made available using Mutiny bindings and no need to use Quarkus. It is also possible to use Mutiny as a stand alone independent library.
+
+>>> The Mutiny library builds on top of three pillars:
+	1. Event-Driven: For Reactive Applications, it is needed for them to be event driven. It enables them to be elastic, resilient and responsive.
+	2. API Navigability: This API library refers to the API of the Mutiny library. Mutiny is different from other RxJava and Project-Reactor libraries.
+	3. Simplicity: The functionality is limited to the basics and the learning curve is smaller than RxJava and Project-Reactor.
+>> The simplicity in Mutiny is coming from only supporting two reactive types:
+	1. Multi - Represents streams of 0 to n elements (Potentially unbounded).
+	2. Uni - Represents streams receiving either an item or failure.
+
+>>> Mutiny Code Generator:
+
+      Vert.x Core API -----                            ----- Mutiny Core API
+                           |                          | 
+      Vert.x Web API -----------> Mutiny Generator <-------- Mutiny Web API  
+                           | |                       | |
+      Vert.x Redis API ----  |                       |  ----- Mutiny Redis API
+                             |                       |
+      ... -------------------                         ------- ...
+
+Mutiny Generator converts the Vert.x APIs to Mutiny APIs. This is done by the smallrye mutiny bindings library.
+>> Smallrye Bindings: The bindings are available for all kinds of Vert.x modules and you can intergrate it by specifying:
+ Group: "io.smallrye.reactive"
+ Artifact: "smallrye-mutiny-vertx-<MODULE>" where MODULE refers to a Vert.x module, such as core, pg-client, web-client, etc.
+
+===========================
+Quarkus Reactive and Vert.x
+===========================
+>>> Quarkus is a modern cloud native microservices framework. In the Quarkus reactive engine, under the hood, Vert.x and Mutiny are used. Under the hood Quarkus has a reactive engine. This engine, powered by Eclipse Vert.x and Netty. handles the non-blocking I/O interactions.
+
+>>> Quarkus:
+	1. Cloud Native JVM Framework.
+		a. GraalVM
+	2. Imerative & Reactive
+		a. Reactive powered by Vert.x
+	3. Vert.x toolkit vs Quarkus framework
+		a. Choose what fits best for your use case
+
+>>> Quarkus Reactive: Quarkus uses Mutiny as its central reactive programming model. So, it supports returning Mutiny types (Uni and Multi) from HTTP endpoints.
+
+>>> Hibernate Reactive: Hibernate Reactive is a reactive API for Hibernate ORM, supporting non-blocking database drivers and a reactive style of interaction with the database.
+
+==================
+Vert.x Web Sockets
+==================
+>>> A Web Socket connection is a full-duplex communication channel over a single TCP connection. Compared to REST API, the connections are persistent and stateful. A client connects to the server and then the server can interact with the client. The persistent connection supports a two way communication, it is possible to push data from a server to a client and it is also possible to push data from the client to the server. This is also the main benefit of circuits, to push data in real time to connect the clients.
+
++++++++++++++++++++++
+Points
++++++++++++++++++++++
+===============
+Vert.x Core
+===============
+> Chaining multiple functions together is known as builder pattern. (RECHECK IT!!)
+
+> The Verticles will be assigned to an event loop and will always be executed by the same thread, but only if there is work to do. The WorkerVerticles will be assigned to a thread coming from the worker pool and can be executed by different threads.
+
+> "Apache Log4j 2" is agood logging framework for Vert.x. Vert.x uses it's internal logging API to support other logging packages as well. It would also be possible to configure log packs or other logging frameworks. One benefir of Log4j 2 is the support for Asynchronous logging, which can get 18 times higher throughput and lower latency stated on the homepage. Asynchronous logging is faster than Synchronous logging. "SLF4J" is a standardized API for all common logging frameworks. Steps to configure the Log4j2:
+	1. First add the below code in build.gradle:
+		-------------------------------------------------------------------------------------------------------------
+		[KOTLIN]
+		plugins {
+			id("io.spring.dependency-management") version "1.0.1.RELEASE"
+		}
+
+		dependencyManagement {
+		  imports {
+		    mavenBom("org.apache.logging.log4j:log4j-bom:2.14.1")
+		  }
+		}
+
+		dependencies {
+		  implementation("org.apache.logging.log4j:log4j-api")
+		  implementation("org.apache.logging.log4j:log4j-core")
+		  implementation("org.apache.logging.log4j:log4j-slf4j-impl")
+		  implementation("org.slf4j:slf4j-api:1.7.31")
+		}
+		-------------------------------------------------------------------------------------------------------------
+		[JAVA]
+		plugins {
+		  id 'io.spring.dependency-management' version '1.0.1.RELEASE'
+		}
+
+		dependencyManagement {
+		  imports {
+		    mavenBom 'org.apache.logging.log4j:log4j-bom:2.14.1'
+		  }
+		}
+
+		dependencies {
+		  compile 'org.apache.logging.log4j:log4j-api'
+		  compile 'org.apache.logging.log4j:log4j-core'
+		  compile 'org.apache.logging.log4j:log4j-slf4j-impl'
+		  compile 'org.slf4j:slf4j-api:1.7.31'
+		}
+		-------------------------------------------------------------------------------------------------------------
+
+	2. Create a log4j2.xml file inside 'src/main' directory and copy paste the code below:
+		-------------------------------------------------------------------------------------------------------------
+		<?xml version="1.0" encoding="UTF-8"?>
+		<Configuration status="INFO">
+		  <Appenders>
+		    <Console name="Console" target="SYSTEM_OUT">
+		      <PatternLayout pattern="%blue{%d{HH:mm:ss.SSS}} [%t] %highlight{%-5level} %magenta{%c{1.}} - %msg%n"/>
+		    </Console>
+		  </Appenders>
+		  <Loggers>
+
+		    <Logger name="com.danielprinz.udemy" level="DEBUG" />
+
+		    <Root level="INFO">
+		      <AppenderRef ref="Console"/>
+		    </Root>
+		  </Loggers>
+		</Configuration>
+		-------------------------------------------------------------------------------------------------------------
+
+	3. Declare and initiate Logger in the file: [import only from sl4j]
+		private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+
+> Java does not have a built in JSON Class but Vert.x does. It is possible to convert the Java object to a JSON object. In the background, Vert.x uses Jackson (high performance JSON processor) as JSON processor to do the conversion. Every Java object needs to have proper constructor, getters and setters, otherwise the conversion will fail.
+In Vert.x 4, Jackson only provides checks and core out of the box. But for checks and data bind we need to add dependency. In Vert.x 3, Jackson provides both out of the box, no need to add any other dependency. Dependency:
+"com.fasterxml.jackson.core:jackson-databind:$jacksonVersion" | Use the same version for jackson-databind (value of jacksonVersion), as the version of jackson-core (Find it in the External Libraries folder).
+
+> When creating a new project using the Vert.x starter website, JUnit5 is configured already. So, no need to add a dependency.
+
+> By default, Vert.x does not allow to send custom Java objects over the Event Bus. We need a custom message codec for it. The custom codec will extend the MessageCodec<T,T> interface where sending and receiving type is generic. Make sure to always send immutable objects when using the codec otherwise concurrency issues may occur. 
+By default Vert.x provides all the basic message codec. The transform() inside each message codec is used for a local event bus instance. 
+When sendig JsonObjects, Vert.x sends a copy of the JsonObject, as it takes care of the concurrency issues, even if it is a overhead.
+For having a functionality to send objects over a clustered event bus, we would have to transform them into a buffer and also decode them from a buffer.
+For immutable objects (e.g: Boolean), just return them as it is, in transform().
+
+===============
+Vert.x Web
+===============
+> Project Lombok: It is a Java library that automatically plugs into the editor and build tools. With this, we can generate getters, setters, fully feature builders, equals and more with annotations. It gets rid of the boilerplates.
+
+> HTTP handlers should be refactored in their own classes as a good practice.
+
+> Vegeta: HTTP Load testing tool and library.
+
+===============
+Vert.x Config
+===============
+
+===============
+Vert.x Data
+===============
+> Flyway: It is a tool to version contrlol our database.
+
+> localhost:8081 - Docker DB Admin panel.
+
+=========================
+Vert.x Reactive - Mutiny
+=========================
+
+===========================
+Quarkus Reactive and Vert.x
+===========================
+
+==================
+Vert.x Web Sockets
+==================
+
++++++++++++++++++++++
+File Chronology
++++++++++++++++++++++
+===============
+Vert.x Core
+===============
+
+===============
+Vert.x Web
+===============
+
+===============
+Vert.x Config
+===============
+
+===============
+Vert.x Data
+===============
+
+===============
+Vert.x Reactive
+===============
+
+===========================
+Quarkus Reactive and Vert.x
+===========================
+
+==================
+Vert.x Web Sockets
+==================
